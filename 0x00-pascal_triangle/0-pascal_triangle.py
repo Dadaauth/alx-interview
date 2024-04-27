@@ -1,4 +1,11 @@
+#!/usr/bin/python3
+"""A module containing instruments for manipulating pascal triangles.
+"""
 def pascal_triangle(n):
+    """
+    A function to return a lists of lists for a
+    pascal triangle based on the number given to it.
+    """
     psl_trg = [[1]]
     if (n <= 0):
         return []
