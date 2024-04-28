@@ -11,7 +11,7 @@ def pascal_triangle(n):
     psl_trg = [[1]]
     if (n <= 0):
         return []
-    for i in range(n):
+    for i in range(n - 1):
         tmp_list = [1]
         prev_item = 1
         for idx, item in enumerate(psl_trg[i]):
