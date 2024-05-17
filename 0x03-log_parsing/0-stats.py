@@ -9,6 +9,7 @@ total_file_size = 0
 
 
 def check_line_format(line):
+    """Check the format of the line and return the details of the line"""
     ip_address = line.split(" -", 1)
     timestamp = ip_address[1].strip()
     timestamp = timestamp.split('[')
@@ -30,6 +31,7 @@ def check_line_format(line):
 
 
 def print_codes(status_codes):
+    """Print the status codes and their count"""
     for st_code in status_codes:
         if st_code["count"] > 0:
             print(f"{st_code["code"]}: {st_code["count"]}")
@@ -48,6 +50,7 @@ status_codes = [
 
 
 def sigint_handler(signum, frame):
+    """Signal handler for SIGINT signal"""
     print("Signal handler with signal", signum)
     print_updates()
 
@@ -56,6 +59,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 
 def print_updates():
+    """Print the updates of the status codes and the total file size"""
     print(f"File size: {total_file_size}")
     print_codes(status_codes)
     for st_code in status_codes:
