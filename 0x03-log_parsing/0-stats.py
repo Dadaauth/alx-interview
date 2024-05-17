@@ -1,13 +1,26 @@
 #!/usr/bin/python3
-"""A module documentation that I am creating for my
-    Log p[arsing project in the ALX SE program]"""
+"""
+A module documentation that I am creating for my
+Log parsing project in the ALX SE program
+"""
 
 import sys
 import signal
 
 line_count = 0
-total_file_size = 0
-
+dtr = {
+    "total_file_size": 0,
+    "status_codes": [
+        {"code": 200, "count": 0},
+        {"code": 301, "count": 0},
+        {"code": 400, "count": 0},
+        {"code": 401, "count": 0},
+        {"code": 403, "count": 0},
+        {"code": 404, "count": 0},
+        {"code": 405, "count": 0},
+        {"code": 500, "count": 0},
+    ]
+}
 
 def check_line_format(line):
     """Check the format of the line and return the details of the line"""
@@ -31,28 +44,15 @@ def check_line_format(line):
             path, http_ver, status_code, file_size)
 
 
-def print_codes(status_codes):
+def print_codes():
     """Print the status codes and their count"""
-    for st_code in status_codes:
+    for st_code in dtr['status_codes']:
         if st_code["count"] > 0:
             print(f"{st_code["code"]}: {st_code["count"]}")
 
 
-status_codes = [
-    {"code": 200, "count": 0},
-    {"code": 301, "count": 0},
-    {"code": 400, "count": 0},
-    {"code": 401, "count": 0},
-    {"code": 403, "count": 0},
-    {"code": 404, "count": 0},
-    {"code": 405, "count": 0},
-    {"code": 500, "count": 0},
-]
-
-
 def sigint_handler(signum, frame):
     """Signal handler for SIGINT signal"""
-    print("Signal handler with signal", signum)
     print_updates()
 
 
@@ -61,17 +61,17 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 def print_updates():
     """Print the updates of the status codes and the total file size"""
-    print(f"File size: {total_file_size}")
-    print_codes(status_codes)
-    for st_code in status_codes:
+    print(f"File size: {dtr["total_file_size"]}")
+    print_codes(dtr["status_codes"])
+    for st_code in dtr["status_codes"]:
         st_code["count"] = 0
 
 
 for line in sys.stdin:
     details = check_line_format(line)
-    total_file_size += int(details[-1])
+    dtr["total_file_size"] += int(details[-1])
     status_code = int(details[-2])
-    for st_code in status_codes:
+    for st_code in dtr["status_codes"]:
         if st_code["code"] == status_code:
             st_code["count"] += 1
             break
