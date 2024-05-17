@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""A module documentation"""
+"""A module documentation that I am creating for my
+    Log p[arsing project in the ALX SE program]"""
 
 import sys
 import signal
